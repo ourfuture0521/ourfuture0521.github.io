@@ -1,367 +1,65 @@
 <!DOCTYPE html>
 <html lang="zh-Hant">
-
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>導覽列與 CSS 模擬圖片區塊</title>
+  <meta charset="UTF-8">
+  <title>整合頁面</title>
   <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+    /* 導覽列樣式略（你原本有的就保留） */
 
-    body {
-      background: #fff;
-      font-family: "Arial", sans-serif;
-    }
-
-    a {
-      color: inherit;
-      text-decoration: none;
-    }
-
-    header {
-      background-color: #323232;
-      position: sticky;
-      top: 0;
-      z-index: 999;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
-    }
-
-    .navbar {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      padding: 6px 0;
-    }
-    
-    .menu {
-      list-style: none;
-      display: flex;
-      max-width: 100%;
-      overflow-x: auto;
-      white-space: nowrap;
-      scrollbar-width: none;
-    }
-
-    .menu::-webkit-scrollbar {
-      display: none;
-    }
-
-    .menu-item {
-      position: relative;
-      padding: 10px 16px;
-      flex-shrink: 0;
-    }
-
-    .menu-item a {
-      color: white;
-      font-size: 16px;
-      display: block;
-      text-align: center;
-    }
-
-    .menu-item:hover a {
-      color: #a6a6a6;
-    }
-
-    .banner {
-      position: relative;
-      background-color: #323232;
-      width: 100%;
-      height: 300px;
-      overflow: hidden;
-      margin-top: 30px;
-    }
-
-    .banner::before {
-      content: "";
-      position: absolute;
-      top: 0;
-      right: 0;
-      width: 55%;
-      height: 100%;
-      background-image: url("https://images.pexels.com/photos/5466275/pexels-photo-5466275.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2");
-      background-size: cover;
-      background-position: center;
-      z-index: 0;
-    }
-
-    .slant,
-    .slant-left {
-      position: absolute;
-      top: 0;
-      width: 150px;
-      height: 100%;
-      background-color: #323232;
-      transform: skewX(-25deg);
-      z-index: 1;
-    }
-
-    .slant {
-      left: 40%;
-    }
-
-    .slant-left {
-      left: 30%;
-    }
-
-    .text-container {
-      position: absolute;
-      top: 50%;
-      left: 5%;
-      transform: translateY(-50%);
-      z-index: 2;
-      color: white;
-      line-height: 1.5;
-    }
-
-    .text-container .zh {
-      font-size: 70px;
-      font-weight: bold;
-    }
-
-    .text-container .en {
-      font-size: 28px;
-    }
-
+    /* 互動視窗樣式 */
     .mega-menu {
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.3s ease;
       position: absolute;
-      top: 100%;
+      top: 120px; /* ← 原本可能是 300px，這裡往上移 */
       left: 0;
-      transform: translate(-50%, -50%);
-      background-color: #fff;
-      width: 1080px;
-      padding: 20px;
-      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
-      z-index: 1000;
-      display: grid;
-      grid-template-columns: 180px 320px 1fr;
-      gap: 20px;
-    }
-
-    .left-menu ul,
-    .text-list ul {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-    }
-
-    .left-menu li {
-      padding: 6px 0;
-      cursor: pointer;
-    }
-
-    .left-menu .active {
-      color: red;
-      font-weight: bold;
-    }
-
-    .main-content h3 {
-      border-bottom: 2px solid red;
-      margin-bottom: 8px;
-      font-size: 18px;
-    }
-
-    .carousel img {
       width: 100%;
+      background-color: white;
+      border: 1px solid #ccc;
+      display: none;
+      z-index: 1000;
+      padding: 20px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
     }
 
-    .carousel-title {
-      margin-top: 6px;
-      font-weight: bold;
-      font-size: 15px;
+    .navbar li:hover .mega-menu {
+      display: block;
     }
 
-    .text-list li {
-      margin-bottom: 6px;
-      font-size: 14px;
-    }
-
-    .more {
-      margin-top: 12px;
-      color: #d00;
-      cursor: pointer;
-      font-weight: bold;
-      display: inline-block;
-    }
-
-    @media (max-width: 991px) {
-      .banner {
-        display: none;
-      }
-
-      .mega-menu {
-        display: none !important;
-      }
-    }
+    /* 其他樣式保留你原本的就好 */
   </style>
 </head>
-
 <body>
+
   <!-- 導覽列 -->
-  <header>
-    <nav class="navbar">
-      <ul class="menu">
-        <li class="menu-item mega-dropdown"><a
-            href="https://sites.google.com/view/ourfuture0521/%E5%BE%B5%E6%89%8D">夥伴徵募</a></li>
-        <li class="menu-item mega-dropdown"><a
-            href="https://sites.google.com/view/ourfuture0521/%E6%AF%8F%E9%80%B1%E9%80%B1%E5%A0%B1">每週週報</a></li>
-        <li class="menu-item mega-dropdown"><a
-            href="https://sites.google.com/view/ourfuture0521/%E7%88%AD%E8%AD%B0%E8%AD%B0%E6%A1%88%E7%B0%A1%E8%BF%B0">爭議議案簡述</a>
-        </li>
-        <li class="menu-item mega-dropdown"><a
-            href="https://sites.google.com/view/ourfuture0521/%E6%B3%95%E5%BE%8B%E7%A7%91%E6%99%AE%E5%8D%80">法律知識科普區</a>
-        </li>
-        <li class="menu-item mega-dropdown"><a
-            href="https://sites.google.com/view/ourfuture0521/%E9%97%9C%E6%96%BC%E6%88%91%E5%80%91">關於我們</a></li>
-      </ul>
-    </nav>
-  </header>
+  <nav class="navbar">
+    <ul>
+      <li>
+        爭議議案簡述
+        <div class="mega-menu">
+          <h3>爭議議案簡述</h3>
+          <p>這裡放爭議議案的簡述內容。</p>
+        </div>
+      </li>
+      <li>
+        法律知識科普區
+        <div class="mega-menu">
+          <h3>法律知識科普區</h3>
+          <p>這裡放法律知識的科普內容。</p>
+        </div>
+      </li>
+    </ul>
+  </nav>
 
-  <!-- 模擬圖片區塊（整塊超連結包裹） -->
-  <a href="https://sites.google.com/view/ourfuture0521/%E5%BE%B5%E6%89%8D" style="display:block;">
-    <div class="banner">
-      <div class="slant"></div>
-      <div class="slant-left"></div>
-      <div class="text-container">
-        <div class="zh">夥伴徵募中！！！</div>
-        <div class="zh">歡迎加入我們:)</div>
-        <div class="en">Partner Recruitment Ongoing!!!</div>
-      </div>
-    </div>
-  </a>
-
-  <!-- Mega Menu 區塊 -->
-  <div class="mega-menu" id="megaMenu1">
-    <div class="left-menu">
-      <ul>
-        <li class="active">● 爭議議案簡述</li>
-      </ul>
-    </div>
-
-    <div class="main-content">
-      <h3>精選內容</h3>
-      <div class="carousel">
-        <a
-          href="https://sites.google.com/view/ourfuture0521/%E7%88%AD%E8%AD%B0%E8%AD%B0%E6%A1%88%E7%B0%A1%E8%BF%B0#h.8f9f2xtb4kj4"><img
-            src="https://images.pexels.com/photos/259209/pexels-photo-259209.jpeg?auto=compress&cs=tinysrgb&w=600"
-            alt="images1"></a>
-        <div class="carousel-title"><a
-            href="https://sites.google.com/view/ourfuture0521/%E7%88%AD%E8%AD%B0%E8%AD%B0%E6%A1%88%E7%B0%A1%E8%BF%B0#h.8f9f2xtb4kj4">預算法第八十三、八十四條（2025/03/31）
-        </div></a>
-      </div>
-    </div>
-
-    <div class="text-list">
-      <ul>
-        <li><a
-            href="https://sites.google.com/view/ourfuture0521/%E7%88%AD%E8%AD%B0%E8%AD%B0%E6%A1%88%E7%B0%A1%E8%BF%B0#h.11crkkvmn2sp">選舉罷免法
-            （2024/12/20）</li></a>
-        <li><a
-            href="https://sites.google.com/view/ourfuture0521/%E7%88%AD%E8%AD%B0%E8%AD%B0%E6%A1%88%E7%B0%A1%E8%BF%B0#h.i9b9jpenubsd">財政收支劃分法（2024/12/20）
-        </li></a>
-        <li><a
-            href="https://sites.google.com/view/ourfuture0521/%E7%88%AD%E8%AD%B0%E8%AD%B0%E6%A1%88%E7%B0%A1%E8%BF%B0#h.i9b9jpenubsd">憲法訴訟法（2024/12/20）
-        </li></a>
-      </ul>
-      <div class="more"><a
-          href="https://sites.google.com/view/ourfuture0521/%E7%88%AD%E8%AD%B0%E8%AD%B0%E6%A1%88%E7%B0%A1%E8%BF%B0">查看更多
-          →</a></div>
-    </div>
+  <!-- 模擬圖片區塊與 banner -->
+  <div class="banner">
+    <h2>夥伴徵募中！！！</h2>
+    <p>歡迎加入我們:)</p>
+    <div class="en">partner recruitment ongoing</div>
   </div>
 
-  <div class="mega-menu" id="megaMenu2">
-    <div class="left-menu">
-      <ul>
-        <li class="active">● 法律知識科普區</li>
-      </ul>
-    </div>
-
-    <div class="main-content">
-      <h3>精選內容</h3>
-      <div class="carousel">
-        <a
-          href="https://sites.google.com/view/ourfuture0521/%E6%B3%95%E5%BE%8B%E7%A7%91%E6%99%AE%E5%8D%80#h.92arql77kilf"><img
-            src="https://images.pexels.com/photos/3184291/pexels-photo-3184291.jpeg?auto=compress&cs=tinysrgb&w=600"
-            alt="images1"></a>
-        <div class="carousel-title"><a
-            href="https://sites.google.com/view/ourfuture0521/%E6%B3%95%E5%BE%8B%E7%A7%91%E6%99%AE%E5%8D%80#h.92arql77kilf">會期、院會和常設委員會是什麼？
-        </div></a>
-      </div>
-    </div>
-    <div class="text-list">
-      <ul>
-        <li><a
-            href="https://sites.google.com/view/ourfuture0521/%E6%B3%95%E5%BE%8B%E7%A7%91%E6%99%AE%E5%8D%80#h.dryh0usnq17l">立法流程是什麼？
-        </li></a>
-        <li><a
-            href="https://sites.google.com/view/ourfuture0521/%E6%B3%95%E5%BE%8B%E7%A7%91%E6%99%AE%E5%8D%80#h.o6qzg67uyjoa">比例原則是什麼？</a>
-        </li>
-        <li><a
-            href="https://sites.google.com/view/ourfuture0521/%E6%B3%95%E5%BE%8B%E7%A7%91%E6%99%AE%E5%8D%80#h.qukyqralisaa">覆議、附議、複議、復議是什麼？</a>
-        </li>
-      </ul>
-      <div class="more"><a
-          href="https://sites.google.com/view/ourfuture0521/%E6%B3%95%E5%BE%8B%E7%A7%91%E6%99%AE%E5%8D%80">查看更多 →</a>
-      </div>
-    </div>
+  <!-- 其他內容區，如 Bootstrap 輪播、卡片等 -->
+  <div class="content">
+    <!-- 保留你原本的內容 -->
   </div>
 
-  <script>
-    if (window.innerWidth >= 769) {
-      const dropdowns = document.querySelectorAll('.mega-dropdown');
-      const megaMenu1 = document.getElementById('megaMenu1');
-      const megaMenu2 = document.getElementById('megaMenu2');
-      let activeMenu = null;
-      let hideTimeout;
-
-      function showMenu(menu) {
-        clearTimeout(hideTimeout);
-        if (activeMenu && activeMenu !== menu) {
-          activeMenu.style.opacity = '0';
-          activeMenu.style.pointerEvents = 'none';
-        }
-        menu.style.opacity = '1';
-        menu.style.pointerEvents = 'auto';
-        activeMenu = menu;
-      }
-
-      function hideMenus() {
-        if (activeMenu) {
-          activeMenu.style.opacity = '0';
-          activeMenu.style.pointerEvents = 'none';
-          activeMenu = null;
-        }
-      }
-
-      const targetMap = {
-        "爭議議案簡述": megaMenu1,
-        "法律知識科普區": megaMenu2
-      };
-
-      dropdowns.forEach(dropdown => {
-        const linkText = dropdown.querySelector('a').innerText;
-        const targetMenu = targetMap[linkText];
-        if (!targetMenu) return;
-
-        dropdown.addEventListener('mouseenter', () => showMenu(targetMenu));
-        dropdown.addEventListener('mouseleave', () => {
-          hideTimeout = setTimeout(hideMenus, 200);
-        });
-
-        targetMenu.addEventListener('mouseenter', () => clearTimeout(hideTimeout));
-        targetMenu.addEventListener('mouseleave', () => {
-          hideTimeout = setTimeout(hideMenus, 200);
-        });
-      });
-    }
-  </script>
 </body>
-
 </html>
