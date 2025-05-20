@@ -283,35 +283,43 @@
     const menuItems = document.querySelectorAll('.menu-item[data-target]');
     const megaMenus = document.querySelectorAll('.mega-menu');
     let hideTimeout;
-
+  
     menuItems.forEach(item => {
       const targetId = item.getAttribute('data-target');
       const targetMenu = document.getElementById(targetId);
-
+  
       item.addEventListener('mouseenter', () => {
         clearTimeout(hideTimeout);
-        megaMenus.forEach(menu => menu.style.display = 'none');
-        targetMenu.style.display = 'flex';
+        megaMenus.forEach(menu => {
+          menu.style.opacity = '0';
+          menu.style.pointerEvents = 'none';
+        });
+        targetMenu.style.opacity = '1';
+        targetMenu.style.pointerEvents = 'auto';
       });
-
+  
       item.addEventListener('mouseleave', () => {
         hideTimeout = setTimeout(() => {
-          targetMenu.style.display = 'none';
+          targetMenu.style.opacity = '0';
+          targetMenu.style.pointerEvents = 'none';
         }, 250);
       });
-
+  
       targetMenu.addEventListener('mouseenter', () => {
         clearTimeout(hideTimeout);
-        targetMenu.style.display = 'flex';
+        targetMenu.style.opacity = '1';
+        targetMenu.style.pointerEvents = 'auto';
       });
-
+  
       targetMenu.addEventListener('mouseleave', () => {
         hideTimeout = setTimeout(() => {
-          targetMenu.style.display = 'none';
+          targetMenu.style.opacity = '0';
+          targetMenu.style.pointerEvents = 'none';
         }, 250);
       });
     });
   </script>
+  
 </body>
 
 </html>
