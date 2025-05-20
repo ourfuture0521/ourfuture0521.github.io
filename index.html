@@ -53,7 +53,6 @@
       position: relative;
       padding: 10px 16px;
       flex-shrink: 0;
-      cursor: pointer;
     }
 
     .menu-item a {
@@ -73,6 +72,7 @@
       width: 100%;
       height: 300px;
       overflow: hidden;
+      margin-top: 30px;
     }
 
     .banner::before {
@@ -137,7 +137,9 @@
       z-index: 1000;
       padding: 20px;
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-      justify-content: space-around;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
     }
 
     .left-menu ul,
@@ -271,37 +273,53 @@
   </a>
 
   <script>
-    const menuItems = document.querySelectorAll('.menu-item[data-target]');
-    const megaMenus = document.querySelectorAll('.mega-menu');
-    let hideTimeout;
+    if (window.innerWidth >= 769) {
+      const dropdowns = document.querySelectorAll('.mega-dropdown');
+      const megaMenu1 = document.getElementById('megaMenu1');
+      const megaMenu2 = document.getElementById('megaMenu2');
+      let activeMenu = null;
+      let hideTimeout;
 
-    menuItems.forEach(item => {
-      const targetId = item.getAttribute('data-target');
-      const targetMenu = document.getElementById(targetId);
-
-      item.addEventListener('mouseenter', () => {
+      function showMenu(menu) {
         clearTimeout(hideTimeout);
-        megaMenus.forEach(menu => menu.style.display = 'none');
-        targetMenu.style.display = 'flex';
-      });
+        if (activeMenu && activeMenu !== menu) {
+          activeMenu.style.opacity = '0';
+          activeMenu.style.pointerEvents = 'none';
+        }
+        menu.style.opacity = '1';
+        menu.style.pointerEvents = 'auto';
+        activeMenu = menu;
+      }
 
-      item.addEventListener('mouseleave', () => {
-        hideTimeout = setTimeout(() => {
-          targetMenu.style.display = 'none';
-        }, 250);
-      });
+      function hideMenus() {
+        if (activeMenu) {
+          activeMenu.style.opacity = '0';
+          activeMenu.style.pointerEvents = 'none';
+          activeMenu = null;
+        }
+      }
 
-      targetMenu.addEventListener('mouseenter', () => {
-        clearTimeout(hideTimeout);
-        targetMenu.style.display = 'flex';
-      });
+      const targetMap = {
+        "爭議議案簡述": megaMenu1,
+        "法律知識科普區": megaMenu2
+      };
 
-      targetMenu.addEventListener('mouseleave', () => {
-        hideTimeout = setTimeout(() => {
-          targetMenu.style.display = 'none';
-        }, 250);
+      dropdowns.forEach(dropdown => {
+        const linkText = dropdown.querySelector('a').innerText;
+        const targetMenu = targetMap[linkText];
+        if (!targetMenu) return;
+
+        dropdown.addEventListener('mouseenter', () => showMenu(targetMenu));
+        dropdown.addEventListener('mouseleave', () => {
+          hideTimeout = setTimeout(hideMenus, 200);
+        });
+
+        targetMenu.addEventListener('mouseenter', () => clearTimeout(hideTimeout));
+        targetMenu.addEventListener('mouseleave', () => {
+          hideTimeout = setTimeout(hideMenus, 200);
+        });
       });
-    });
+    }
   </script>
 </body>
 </html>
