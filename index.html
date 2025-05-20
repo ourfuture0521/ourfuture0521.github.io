@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="zh-Hant">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -53,6 +54,7 @@
       position: relative;
       padding: 10px 16px;
       flex-shrink: 0;
+      cursor: pointer;
     }
 
     .menu-item a {
@@ -72,7 +74,6 @@
       width: 100%;
       height: 300px;
       overflow: hidden;
-      margin-top: 30px;
     }
 
     .banner::before {
@@ -127,20 +128,23 @@
     }
 
     .mega-menu {
-      position: absolute;
-      top: 56px;
-      left: 0;
-      width: 100%;
-      background-color: white;
-      border: 1px solid #ccc;
-      display: none;
-      z-index: 1000;
-      padding: 20px;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
       opacity: 0;
       pointer-events: none;
       transition: opacity 0.3s ease;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: #fff;
+      width: 1080px;
+      padding: 20px;
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+      z-index: 1000;
+      display: grid;
+      grid-template-columns: 180px 320px 1fr;
+      gap: 20px;
     }
+
 
     .left-menu ul,
     .text-list ul {
@@ -199,15 +203,18 @@
     }
   </style>
 </head>
+
 <body>
   <header>
     <nav class="navbar">
       <ul class="menu">
         <li class="menu-item"><a href="https://sites.google.com/view/ourfuture0521/%E5%BE%B5%E6%89%8D">夥伴徵募</a></li>
-        <li class="menu-item"><a href="https://sites.google.com/view/ourfuture0521/%E6%AF%8F%E9%80%B1%E9%80%B1%E5%A0%B1">每週週報</a></li>
+        <li class="menu-item"><a
+            href="https://sites.google.com/view/ourfuture0521/%E6%AF%8F%E9%80%B1%E9%80%B1%E5%A0%B1">每週週報</a></li>
         <li class="menu-item" data-target="menu-1"><a href="#">爭議議案簡述</a></li>
         <li class="menu-item" data-target="menu-2"><a href="#">法律知識科普區</a></li>
-        <li class="menu-item"><a href="https://sites.google.com/view/ourfuture0521/%E9%97%9C%E6%96%BC%E6%88%91%E5%80%91">關於我們</a></li>
+        <li class="menu-item"><a
+            href="https://sites.google.com/view/ourfuture0521/%E9%97%9C%E6%96%BC%E6%88%91%E5%80%91">關於我們</a></li>
       </ul>
     </nav>
   </header>
@@ -273,53 +280,38 @@
   </a>
 
   <script>
-    if (window.innerWidth >= 769) {
-      const dropdowns = document.querySelectorAll('.mega-dropdown');
-      const megaMenu1 = document.getElementById('megaMenu1');
-      const megaMenu2 = document.getElementById('megaMenu2');
-      let activeMenu = null;
-      let hideTimeout;
+    const menuItems = document.querySelectorAll('.menu-item[data-target]');
+    const megaMenus = document.querySelectorAll('.mega-menu');
+    let hideTimeout;
 
-      function showMenu(menu) {
+    menuItems.forEach(item => {
+      const targetId = item.getAttribute('data-target');
+      const targetMenu = document.getElementById(targetId);
+
+      item.addEventListener('mouseenter', () => {
         clearTimeout(hideTimeout);
-        if (activeMenu && activeMenu !== menu) {
-          activeMenu.style.opacity = '0';
-          activeMenu.style.pointerEvents = 'none';
-        }
-        menu.style.opacity = '1';
-        menu.style.pointerEvents = 'auto';
-        activeMenu = menu;
-      }
-
-      function hideMenus() {
-        if (activeMenu) {
-          activeMenu.style.opacity = '0';
-          activeMenu.style.pointerEvents = 'none';
-          activeMenu = null;
-        }
-      }
-
-      const targetMap = {
-        "爭議議案簡述": megaMenu1,
-        "法律知識科普區": megaMenu2
-      };
-
-      dropdowns.forEach(dropdown => {
-        const linkText = dropdown.querySelector('a').innerText;
-        const targetMenu = targetMap[linkText];
-        if (!targetMenu) return;
-
-        dropdown.addEventListener('mouseenter', () => showMenu(targetMenu));
-        dropdown.addEventListener('mouseleave', () => {
-          hideTimeout = setTimeout(hideMenus, 200);
-        });
-
-        targetMenu.addEventListener('mouseenter', () => clearTimeout(hideTimeout));
-        targetMenu.addEventListener('mouseleave', () => {
-          hideTimeout = setTimeout(hideMenus, 200);
-        });
+        megaMenus.forEach(menu => menu.style.display = 'none');
+        targetMenu.style.display = 'flex';
       });
-    }
+
+      item.addEventListener('mouseleave', () => {
+        hideTimeout = setTimeout(() => {
+          targetMenu.style.display = 'none';
+        }, 250);
+      });
+
+      targetMenu.addEventListener('mouseenter', () => {
+        clearTimeout(hideTimeout);
+        targetMenu.style.display = 'flex';
+      });
+
+      targetMenu.addEventListener('mouseleave', () => {
+        hideTimeout = setTimeout(() => {
+          targetMenu.style.display = 'none';
+        }, 250);
+      });
+    });
   </script>
 </body>
+
 </html>
