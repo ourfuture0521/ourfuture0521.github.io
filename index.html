@@ -22,6 +22,12 @@
       text-decoration: none;
     }
 
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 16px;
+    }
+
     header {
       background-color: #323232;
       position: sticky;
@@ -133,18 +139,19 @@
       transition: opacity 0.3s ease;
       position: absolute;
       top: 230px;
-      left: 50%;
-      transform: translate(-50%, -50%);
+      left: 0;
+      width: 100%;
       background-color: #fff;
-      width: 1080px;
-      padding: 20px;
       box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
       z-index: 1000;
+    }
+
+    .mega-menu .container {
       display: grid;
       grid-template-columns: 180px 320px 1fr;
       gap: 20px;
+      padding: 20px;
     }
-
 
     .left-menu ul,
     .text-list ul {
@@ -206,64 +213,68 @@
 
 <body>
   <header>
-    <nav class="navbar">
-      <ul class="menu">
-        <li class="menu-item"><a href="https://sites.google.com/view/ourfuture0521/%E5%BE%B5%E6%89%8D">夥伴徵募</a></li>
-        <li class="menu-item"><a
-            href="https://sites.google.com/view/ourfuture0521/%E6%AF%8F%E9%80%B1%E9%80%B1%E5%A0%B1">每週週報</a></li>
-        <li class="menu-item" data-target="menu-1"><a href="#">爭議議案簡述</a></li>
-        <li class="menu-item" data-target="menu-2"><a href="#">法律知識科普區</a></li>
-        <li class="menu-item"><a
-            href="https://sites.google.com/view/ourfuture0521/%E9%97%9C%E6%96%BC%E6%88%91%E5%80%91">關於我們</a></li>
-      </ul>
-    </nav>
+    <div class="container">
+      <nav class="navbar">
+        <ul class="menu">
+          <li class="menu-item"><a href="https://sites.google.com/view/ourfuture0521/%E5%BE%B5%E6%89%8D">夥伴徵募</a></li>
+          <li class="menu-item"><a href="https://sites.google.com/view/ourfuture0521/%E6%AF%8F%E9%80%B1%E9%80%B1%E5%A0%B1">每週週報</a></li>
+          <li class="menu-item" data-target="menu-1"><a href="#">爭議議案簡述</a></li>
+          <li class="menu-item" data-target="menu-2"><a href="#">法律知識科普區</a></li>
+          <li class="menu-item"><a href="https://sites.google.com/view/ourfuture0521/%E9%97%9C%E6%96%BC%E6%88%91%E5%80%91">關於我們</a></li>
+        </ul>
+      </nav>
+    </div>
   </header>
 
   <!-- Mega Menu 1 -->
   <div class="mega-menu" id="menu-1">
-    <div class="left-menu">
-      <ul>
-        <li class="active">● 爭議議案簡述</li>
-      </ul>
-    </div>
-    <div class="main-content">
-      <h3>精選內容</h3>
-      <div class="carousel">
-        <a href="#"><img src="https://images.pexels.com/photos/259209/pexels-photo-259209.jpeg" alt=""></a>
-        <div class="carousel-title"><a href="#">預算法第八十三、八十四條</a></div>
+    <div class="container">
+      <div class="left-menu">
+        <ul>
+          <li class="active">● 爭議議案簡述</li>
+        </ul>
       </div>
-    </div>
-    <div class="text-list">
-      <ul>
-        <li><a href="#">選舉罷免法</a></li>
-        <li><a href="#">財政收支劃分法</a></li>
-        <li><a href="#">憲法訴訟法</a></li>
-      </ul>
-      <div class="more"><a href="#">查看更多→</a></div>
+      <div class="main-content">
+        <h3>精選內容</h3>
+        <div class="carousel">
+          <a href="#"><img src="https://images.pexels.com/photos/259209/pexels-photo-259209.jpeg" alt=""></a>
+          <div class="carousel-title"><a href="#">預算法第八十三、八十四條</a></div>
+        </div>
+      </div>
+      <div class="text-list">
+        <ul>
+          <li><a href="#">選舉罷免法</a></li>
+          <li><a href="#">財政收支劃分法</a></li>
+          <li><a href="#">憲法訴訟法</a></li>
+        </ul>
+        <div class="more"><a href="#">查看更多→</a></div>
+      </div>
     </div>
   </div>
 
   <!-- Mega Menu 2 -->
   <div class="mega-menu" id="menu-2">
-    <div class="left-menu">
-      <ul>
-        <li class="active">● 法律知識科普區</li>
-      </ul>
-    </div>
-    <div class="main-content">
-      <h3>精選內容</h3>
-      <div class="carousel">
-        <a href="#"><img src="https://images.pexels.com/photos/3184291/pexels-photo-3184291.jpeg" alt=""></a>
-        <div class="carousel-title"><a href="#">會期、院會和常設委員會是什麼？</a></div>
+    <div class="container">
+      <div class="left-menu">
+        <ul>
+          <li class="active">● 法律知識科普區</li>
+        </ul>
       </div>
-    </div>
-    <div class="text-list">
-      <ul>
-        <li><a href="#">立法流程是什麼？</a></li>
-        <li><a href="#">比例原則是什麼？</a></li>
-        <li><a href="#">覆議、附議、複議、復議是什麼？</a></li>
-      </ul>
-      <div class="more"><a href="#">查看更多→</a></div>
+      <div class="main-content">
+        <h3>精選內容</h3>
+        <div class="carousel">
+          <a href="#"><img src="https://images.pexels.com/photos/3184291/pexels-photo-3184291.jpeg" alt=""></a>
+          <div class="carousel-title"><a href="#">會期、院會和常設委員會是什麼？</a></div>
+        </div>
+      </div>
+      <div class="text-list">
+        <ul>
+          <li><a href="#">立法流程是什麼？</a></li>
+          <li><a href="#">比例原則是什麼？</a></li>
+          <li><a href="#">覆議、附議、複議、復議是什麼？</a></li>
+        </ul>
+        <div class="more"><a href="#">查看更多→</a></div>
+      </div>
     </div>
   </div>
 
@@ -271,10 +282,12 @@
     <div class="banner">
       <div class="slant"></div>
       <div class="slant-left"></div>
-      <div class="text-container">
-        <div class="zh">夥伴徵募中！！！</div>
-        <div class="zh">歡迎加入我們:)</div>
-        <div class="en">Partner Recruitment Ongoing!!!</div>
+      <div class="container">
+        <div class="text-container">
+          <div class="zh">夥伴徵募中！！！</div>
+          <div class="zh">歡迎加入我們:)</div>
+          <div class="en">Partner Recruitment Ongoing!!!</div>
+        </div>
       </div>
     </div>
   </a>
@@ -283,11 +296,11 @@
     const menuItems = document.querySelectorAll('.menu-item[data-target]');
     const megaMenus = document.querySelectorAll('.mega-menu');
     let hideTimeout;
-  
+
     menuItems.forEach(item => {
       const targetId = item.getAttribute('data-target');
       const targetMenu = document.getElementById(targetId);
-  
+
       item.addEventListener('mouseenter', () => {
         clearTimeout(hideTimeout);
         megaMenus.forEach(menu => {
@@ -297,20 +310,20 @@
         targetMenu.style.opacity = '1';
         targetMenu.style.pointerEvents = 'auto';
       });
-  
+
       item.addEventListener('mouseleave', () => {
         hideTimeout = setTimeout(() => {
           targetMenu.style.opacity = '0';
           targetMenu.style.pointerEvents = 'none';
         }, 250);
       });
-  
+
       targetMenu.addEventListener('mouseenter', () => {
         clearTimeout(hideTimeout);
         targetMenu.style.opacity = '1';
         targetMenu.style.pointerEvents = 'auto';
       });
-  
+
       targetMenu.addEventListener('mouseleave', () => {
         hideTimeout = setTimeout(() => {
           targetMenu.style.opacity = '0';
@@ -319,7 +332,6 @@
       });
     });
   </script>
-  
 </body>
 
 </html>
