@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="zh-Hant">
-
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -68,6 +67,13 @@
       color: #a6a6a6;
     }
 
+    .container {
+      max-width: 1080px;
+      margin: 40px auto;
+      padding: 0 16px;
+      position: relative;
+    }
+
     .banner {
       position: relative;
       background-color: #323232;
@@ -133,17 +139,14 @@
       transition: opacity 0.3s ease;
       position: absolute;
       top: 230px;
-      left: 0;
-      width: 100vw;
+      left: 50%;
+      transform: translate(-50%, -50%);
       background-color: #fff;
+      width: 100%;
+      max-width: 1080px;
+      padding: 20px;
       box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
       z-index: 1000;
-    }
-
-    .mega-menu .container {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 20px;
       display: grid;
       grid-template-columns: 180px 320px 1fr;
       gap: 20px;
@@ -203,10 +206,14 @@
       .mega-menu {
         display: none !important;
       }
+
+      .container {
+        margin: 20px auto;
+        padding: 0 12px;
+      }
     }
   </style>
 </head>
-
 <body>
   <header>
     <nav class="navbar">
@@ -220,9 +227,9 @@
     </nav>
   </header>
 
-  <!-- Mega Menu 1 -->
-  <div class="mega-menu" id="menu-1">
-    <div class="container">
+  <div class="container">
+    <!-- Mega Menu 1 -->
+    <div class="mega-menu" id="menu-1">
       <div class="left-menu">
         <ul>
           <li class="active">● 爭議議案簡述</li>
@@ -244,11 +251,9 @@
         <div class="more"><a href="#">查看更多→</a></div>
       </div>
     </div>
-  </div>
 
-  <!-- Mega Menu 2 -->
-  <div class="mega-menu" id="menu-2">
-    <div class="container">
+    <!-- Mega Menu 2 -->
+    <div class="mega-menu" id="menu-2">
       <div class="left-menu">
         <ul>
           <li class="active">● 法律知識科普區</li>
@@ -270,19 +275,19 @@
         <div class="more"><a href="#">查看更多→</a></div>
       </div>
     </div>
-  </div>
 
-  <a href="https://sites.google.com/view/ourfuture0521/%E5%BE%B5%E6%89%8D" style="display:block;">
-    <div class="banner">
-      <div class="slant"></div>
-      <div class="slant-left"></div>
-      <div class="text-container">
-        <div class="zh">夥伴徵募中！！！</div>
-        <div class="zh">歡迎加入我們:)</div>
-        <div class="en">Partner Recruitment Ongoing!!!</div>
+    <a href="https://sites.google.com/view/ourfuture0521/%E5%BE%B5%E6%89%8D" style="display:block;">
+      <div class="banner">
+        <div class="slant"></div>
+        <div class="slant-left"></div>
+        <div class="text-container">
+          <div class="zh">夥伴徵募中！！！</div>
+          <div class="zh">歡迎加入我們:)</div>
+          <div class="en">Partner Recruitment Ongoing!!!</div>
+        </div>
       </div>
-    </div>
-  </a>
+    </a>
+  </div>
 
   <script>
     const menuItems = document.querySelectorAll('.menu-item[data-target]');
@@ -324,6 +329,9 @@
       });
     });
   </script>
+</body>
+</html>
+
 
 </body>
 </html>
