@@ -2,61 +2,70 @@
 <html lang="zh-Hant">
 <head>
   <meta charset="UTF-8">
-  <title>Mega Menu 測試</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>整合版</title>
   <style>
+    /* reset */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: sans-serif;
+      padding: 20px;
+    }
+
     /* 導覽列樣式 */
     .navbar {
       display: flex;
       background-color: #333;
-      padding: 10px;
+      padding: 10px 20px;
+      color: white;
     }
 
     .navbar a {
       color: white;
-      padding: 12px 16px;
       text-decoration: none;
+      padding: 10px 15px;
       position: relative;
     }
 
-    .navbar .mega-dropdown {
+    .navbar a:hover {
+      background-color: #555;
+    }
+
+    .dropdown {
       position: relative;
     }
 
-    /* mega menu 視窗樣式 */
+    /* mega menu 區塊 */
     .mega-menu {
+      display: none;
       position: absolute;
       top: 100%;
       left: 0;
       width: 600px;
       background-color: white;
-      border: 1px solid #ccc;
-      display: flex;
-      gap: 20px;
+      color: black;
       padding: 20px;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.3s ease;
-      z-index: 999;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      z-index: 1000;
     }
 
-    .mega-menu-column {
-      flex: 1;
-    }
-
-    .mega-menu-column h4 {
+    .mega-menu h3 {
       margin-bottom: 10px;
-      color: #333;
     }
 
-    .mega-menu-column a {
+    /* 輔助區域定位用 */
+    .menu-container {
+      position: relative;
+    }
+
+    /* 可選：讓 mega menu 顯示出來時有 transition 效果 */
+    .mega-menu.show {
       display: block;
-      padding: 5px 0;
-      color: #333;
-      text-decoration: none;
-    }
-
-    .mega-menu-column a:hover {
-      color: #007BFF;
     }
   </style>
 </head>
@@ -64,113 +73,73 @@
 
   <!-- 導覽列 -->
   <div class="navbar">
-    <div class="mega-dropdown">
-      <a href="issue.html">爭議議案簡述</a>
+    <a href="#">首頁</a>
+    <div class="dropdown" data-menu="menu1">
+      <a href="#">爭議議案簡述</a>
     </div>
-    <div class="mega-dropdown">
-      <a href="law.html">法律知識科普區</a>
-    </div>
-    <a href="other.html">其他連結</a>
-  </div>
-
-  <!-- mega menu：爭議議案簡述 -->
-  <div class="mega-menu" id="megaMenu1">
-    <div class="mega-menu-column">
-      <h4>勞動權益</h4>
-      <a href="#">加班工時改革</a>
-      <a href="#">最低工資調整</a>
-    </div>
-    <div class="mega-menu-column">
-      <h4>社會保障</h4>
-      <a href="#">年金改革</a>
-      <a href="#">育嬰津貼政策</a>
-    </div>
-    <div class="mega-menu-column">
-      <h4>稅制改革</h4>
-      <a href="#">富人稅調整</a>
-      <a href="#">碳稅立法</a>
+    <div class="dropdown" data-menu="menu2">
+      <a href="#">法律知識科普區</a>
     </div>
   </div>
 
-  <!-- mega menu：法律知識科普區 -->
-  <div class="mega-menu" id="megaMenu2">
-    <div class="mega-menu-column">
-      <h4>民事法律</h4>
-      <a href="#">契約基本原則</a>
-      <a href="#">侵權責任介紹</a>
+  <!-- menu 容器：與導覽列分開 -->
+  <div class="menu-container">
+    <!-- 第一個 mega menu -->
+    <div id="menu1" class="mega-menu">
+      <h3>爭議議案簡述</h3>
+      <p>這裡是爭議議案的相關說明內容。</p>
     </div>
-    <div class="mega-menu-column">
-      <h4>刑事法律</h4>
-      <a href="#">刑法基礎</a>
-      <a href="#">犯罪構成要件</a>
-    </div>
-    <div class="mega-menu-column">
-      <h4>行政法與憲法</h4>
-      <a href="#">行政處分定義</a>
-      <a href="#">憲法基本權</a>
+
+    <!-- 第二個 mega menu -->
+    <div id="menu2" class="mega-menu">
+      <h3>法律知識科普區</h3>
+      <p>這裡是法律知識的科普說明。</p>
     </div>
   </div>
 
-  <!-- JavaScript -->
+  <!-- JavaScript：控制顯示與隱藏 -->
   <script>
-    if (window.innerWidth >= 769) {
-      const dropdowns = document.querySelectorAll('.mega-dropdown');
-      const megaMenu1 = document.getElementById('megaMenu1');
-      const megaMenu2 = document.getElementById('megaMenu2');
-      let activeMenu = null;
-      let hideTimeout;
+    const dropdowns = document.querySelectorAll('.dropdown');
+    const menus = document.querySelectorAll('.mega-menu');
 
-      function showMenu(menu) {
-        clearTimeout(hideTimeout);
-        if (activeMenu && activeMenu !== menu) {
-          activeMenu.style.opacity = '0';
-          activeMenu.style.pointerEvents = 'none';
-        }
-        menu.style.opacity = '1';
-        menu.style.pointerEvents = 'auto';
-        activeMenu = menu;
-      }
-
-      function hideMenus() {
-        if (activeMenu) {
-          activeMenu.style.opacity = '0';
-          activeMenu.style.pointerEvents = 'none';
-          activeMenu = null;
-        }
-      }
-
-      const targetMap = {
-        "爭議議案簡述": megaMenu1,
-        "法律知識科普區": megaMenu2
-      };
-
-      dropdowns.forEach(dropdown => {
-        const link = dropdown.querySelector('a');
-        const linkText = link.innerText;
-        const targetMenu = targetMap[linkText];
-        if (!targetMenu) return;
-
-        dropdown.addEventListener('mouseenter', () => showMenu(targetMenu));
-        dropdown.addEventListener('mouseleave', () => {
-          hideTimeout = setTimeout(hideMenus, 200);
-        });
-
-        targetMenu.addEventListener('mouseenter', () => clearTimeout(hideTimeout));
-        targetMenu.addEventListener('mouseleave', () => {
-          hideTimeout = setTimeout(hideMenus, 200);
-        });
-
-        // 延遲跳轉連結
-        link.addEventListener('click', function (e) {
-          e.preventDefault();
-          const href = this.href;
-          setTimeout(() => {
-            window.location.href = href;
-          }, 300);
-        });
-      });
+    function showMenu(menu) {
+      menus.forEach(m => m.classList.remove('show'));
+      if (menu) menu.classList.add('show');
     }
-  </script>
 
+    function hideMenus() {
+      menus.forEach(m => m.classList.remove('show'));
+    }
+
+    dropdowns.forEach(dropdown => {
+      const menuId = dropdown.getAttribute('data-menu');
+      const targetMenu = document.getElementById(menuId);
+
+      dropdown.addEventListener('mouseenter', () => {
+        if (window.innerWidth >= 769) {
+          showMenu(targetMenu);
+        }
+      });
+
+      dropdown.addEventListener('mouseleave', () => {
+        if (window.innerWidth >= 769) {
+          setTimeout(() => {
+            // 如果滑鼠沒有移到 mega menu 上，才關閉
+            if (!targetMenu.matches(':hover')) {
+              hideMenus();
+            }
+          }, 200);
+        }
+      });
+
+      targetMenu.addEventListener('mouseleave', () => {
+        hideMenus();
+      });
+
+      targetMenu.addEventListener('mouseenter', () => {
+        showMenu(targetMenu);
+      });
+    });
+  </script>
 </body>
 </html>
