@@ -138,7 +138,7 @@
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     }
 
-    .menu-item:hover + .mega-menu,
+    .menu-item:hover .mega-menu,
     .mega-menu:hover {
       display: block;
     }
@@ -206,55 +206,58 @@
       <ul class="menu">
         <li class="menu-item"><a href="https://sites.google.com/view/ourfuture0521/%E5%BE%B5%E6%89%8D">夥伴徵募</a></li>
         <li class="menu-item"><a href="https://sites.google.com/view/ourfuture0521/%E6%AF%8F%E9%80%B1%E9%80%B1%E5%A0%B1">每週週報</a></li>
-        <li class="menu-item mega-dropdown"><a href="#">爭議議案簡述</a></li>
-        <div class="mega-menu">
-          <!-- 爭議議案簡述內容 -->
-          <div class="left-menu">
-            <ul>
-              <li class="active">● 爭議議案簡述</li>
-            </ul>
-          </div>
-          <div class="main-content">
-            <h3>精選內容</h3>
-            <div class="carousel">
-              <a href="#"><img src="https://images.pexels.com/photos/259209/pexels-photo-259209.jpeg" alt=""></a>
-              <div class="carousel-title"><a href="#">預算法第八十三、八十四條</a></div>
-            </div>
-          </div>
-          <div class="text-list">
-            <ul>
-              <li><a href="#">選舉罷免法</a></li>
-              <li><a href="#">財政收支劃分法</a></li>
-              <li><a href="#">憲法訴訟法</a></li>
-            </ul>
-            <div class="more"><a href="#">查看更多→</a></div>
-          </div>
-        </div>
 
-        <li class="menu-item mega-dropdown"><a href="#">法律知識科普區</a></li>
-        <div class="mega-menu">
-          <!-- 法律知識科普區內容 -->
-          <div class="left-menu">
-            <ul>
-              <li class="active">● 法律知識科普區</li>
-            </ul>
-          </div>
-          <div class="main-content">
-            <h3>精選內容</h3>
-            <div class="carousel">
-              <a href="#"><img src="https://images.pexels.com/photos/3184291/pexels-photo-3184291.jpeg" alt=""></a>
-              <div class="carousel-title"><a href="#">會期、院會和常設委員會是什麼？</a></div>
+        <li class="menu-item">
+          <a href="#">爭議議案簡述</a>
+          <div class="mega-menu">
+            <div class="left-menu">
+              <ul>
+                <li class="active">● 爭議議案簡述</li>
+              </ul>
+            </div>
+            <div class="main-content">
+              <h3>精選內容</h3>
+              <div class="carousel">
+                <a href="#"><img src="https://images.pexels.com/photos/259209/pexels-photo-259209.jpeg" alt=""></a>
+                <div class="carousel-title"><a href="#">預算法第八十三、八十四條</a></div>
+              </div>
+            </div>
+            <div class="text-list">
+              <ul>
+                <li><a href="#">選舉罷免法</a></li>
+                <li><a href="#">財政收支劃分法</a></li>
+                <li><a href="#">憲法訴訟法</a></li>
+              </ul>
+              <div class="more"><a href="#">查看更多→</a></div>
             </div>
           </div>
-          <div class="text-list">
-            <ul>
-              <li><a href="#">立法流程是什麼？</a></li>
-              <li><a href="#">比例原則是什麼？</a></li>
-              <li><a href="#">覆議、附議、複議、復議是什麼？</a></li>
-            </ul>
-            <div class="more"><a href="#">查看更多→</a></div>
+        </li>
+
+        <li class="menu-item">
+          <a href="#">法律知識科普區</a>
+          <div class="mega-menu">
+            <div class="left-menu">
+              <ul>
+                <li class="active">● 法律知識科普區</li>
+              </ul>
+            </div>
+            <div class="main-content">
+              <h3>精選內容</h3>
+              <div class="carousel">
+                <a href="#"><img src="https://images.pexels.com/photos/3184291/pexels-photo-3184291.jpeg" alt=""></a>
+                <div class="carousel-title"><a href="#">會期、院會和常設委員會是什麼？</a></div>
+              </div>
+            </div>
+            <div class="text-list">
+              <ul>
+                <li><a href="#">立法流程是什麼？</a></li>
+                <li><a href="#">比例原則是什麼？</a></li>
+                <li><a href="#">覆議、附議、複議、復議是什麼？</a></li>
+              </ul>
+              <div class="more"><a href="#">查看更多→</a></div>
+            </div>
           </div>
-        </div>
+        </li>
 
         <li class="menu-item"><a href="https://sites.google.com/view/ourfuture0521/%E9%97%9C%E6%96%BC%E6%88%91%E5%80%91">關於我們</a></li>
       </ul>
@@ -272,5 +275,32 @@
       </div>
     </div>
   </a>
+
+  <script>
+    document.querySelectorAll('.menu-item').forEach(item => {
+      const menu = item.querySelector('.mega-menu');
+      if (menu) {
+        let timer;
+        item.addEventListener('mouseenter', () => {
+          clearTimeout(timer);
+          menu.style.display = 'block';
+        });
+        item.addEventListener('mouseleave', () => {
+          timer = setTimeout(() => {
+            menu.style.display = 'none';
+          }, 300); // 延遲 300ms 消失
+        });
+        menu.addEventListener('mouseenter', () => {
+          clearTimeout(timer);
+          menu.style.display = 'block';
+        });
+        menu.addEventListener('mouseleave', () => {
+          timer = setTimeout(() => {
+            menu.style.display = 'none';
+          }, 300);
+        });
+      }
+    });
+  </script>
 </body>
 </html>
