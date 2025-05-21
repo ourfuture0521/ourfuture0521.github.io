@@ -23,20 +23,17 @@
 
     .custom-header {
       background-color: #222;
-      height: 10px; /* 固定高度 */
+      height: 80px;
       display: flex;
       align-items: center;
+      justify-content: center;
       padding: 0 20px;
     }
 
-    .logo-container {
-      max-width: 1080px;
-      margin: 0 auto;
-      display: flex;
-      align-items: center;
-      height: 50%;
-      max-height: 50%;
+    .custom-header img {
+      height: 100%;
       width: auto;
+      object-fit: contain;
     }
 
     .navbar-wrapper {
@@ -222,9 +219,10 @@
   </style>
 </head>
 <body>
-  <header>
-    <div class="logo-container">
-      <a href="https://ourfuture0521.github.io/"><img src="https://i.ibb.co/G3QVMbhb/1.png" alt="1" border="0"></a>
+  <header class="custom-header">
+    <a href="https://ourfuture0521.github.io/">
+      <img src="https://i.ibb.co/G3QVMbhb/1.png" alt="Logo">
+    </a>
   </header>
 
   <div class="navbar-wrapper">
