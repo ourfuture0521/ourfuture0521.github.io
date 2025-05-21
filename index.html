@@ -21,9 +21,12 @@
       text-decoration: none;
     }
 
-    header {
-      background-color: #fff;
-      padding: 20px 0;
+    .custom-header {
+      background-color: #222;
+      height: 80px; /* 固定高度 */
+      display: flex;
+      align-items: center;
+      padding: 0 20px;
     }
 
     .logo-container {
@@ -31,8 +34,9 @@
       margin: 0 auto;
       display: flex;
       align-items: center;
-      height: 80px; /* 控制 logo 區塊高度 */
-      padding: 10px 0;
+      height: 100%;
+      max-height: 100%;
+      width: auto;
     }
 
     .logo-container img {
