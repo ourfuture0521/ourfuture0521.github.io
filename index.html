@@ -31,6 +31,8 @@
     }
 
     .navbar {
+      max-width: 1080px;
+      margin: 0 auto;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -145,7 +147,6 @@
       gap: 20px;
     }
 
-
     .left-menu ul,
     .text-list ul {
       list-style: none;
@@ -209,12 +210,10 @@
     <nav class="navbar">
       <ul class="menu">
         <li class="menu-item"><a href="https://sites.google.com/view/ourfuture0521/%E5%BE%B5%E6%89%8D">夥伴徵募</a></li>
-        <li class="menu-item"><a
-            href="https://sites.google.com/view/ourfuture0521/%E6%AF%8F%E9%80%B1%E9%80%B1%E5%A0%B1">每週週報</a></li>
+        <li class="menu-item"><a href="https://sites.google.com/view/ourfuture0521/%E6%AF%8F%E9%80%B1%E9%80%B1%E5%A0%B1">每週週報</a></li>
         <li class="menu-item" data-target="menu-1"><a href="#">爭議議案簡述</a></li>
         <li class="menu-item" data-target="menu-2"><a href="#">法律知識科普區</a></li>
-        <li class="menu-item"><a
-            href="https://sites.google.com/view/ourfuture0521/%E9%97%9C%E6%96%BC%E6%88%91%E5%80%91">關於我們</a></li>
+        <li class="menu-item"><a href="https://sites.google.com/view/ourfuture0521/%E9%97%9C%E6%96%BC%E6%88%91%E5%80%91">關於我們</a></li>
       </ul>
     </nav>
   </header>
@@ -283,11 +282,11 @@
     const menuItems = document.querySelectorAll('.menu-item[data-target]');
     const megaMenus = document.querySelectorAll('.mega-menu');
     let hideTimeout;
-  
+
     menuItems.forEach(item => {
       const targetId = item.getAttribute('data-target');
       const targetMenu = document.getElementById(targetId);
-  
+
       item.addEventListener('mouseenter', () => {
         clearTimeout(hideTimeout);
         megaMenus.forEach(menu => {
@@ -297,20 +296,20 @@
         targetMenu.style.opacity = '1';
         targetMenu.style.pointerEvents = 'auto';
       });
-  
+
       item.addEventListener('mouseleave', () => {
         hideTimeout = setTimeout(() => {
           targetMenu.style.opacity = '0';
           targetMenu.style.pointerEvents = 'none';
         }, 250);
       });
-  
+
       targetMenu.addEventListener('mouseenter', () => {
         clearTimeout(hideTimeout);
         targetMenu.style.opacity = '1';
         targetMenu.style.pointerEvents = 'auto';
       });
-  
+
       targetMenu.addEventListener('mouseleave', () => {
         hideTimeout = setTimeout(() => {
           targetMenu.style.opacity = '0';
@@ -319,7 +318,6 @@
       });
     });
   </script>
-  
 </body>
 
 </html>
